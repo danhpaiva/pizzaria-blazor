@@ -35,4 +35,9 @@ public class PedidoEstado
 
         MostrarJanelaConfig = false;
     }
+
+    public void RemoverConfiguracaoPizza(Pizza pizza)
+    {
+        Pedido.ListaPizzas.Remove(pizza);
+    }
 }

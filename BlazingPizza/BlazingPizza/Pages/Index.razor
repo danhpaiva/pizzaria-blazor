@@ -44,6 +44,7 @@
                     <div class="item-price">
                         @configuredPizza.GetPrecoTotalFormatado()
                     </div>
+                    <a @onclick="@(() => PedidoEstado.RemoverConfiguracaoPizza(configuredPizza))" class="delete-item">x</a>
                 </div>
             }
         </div>
