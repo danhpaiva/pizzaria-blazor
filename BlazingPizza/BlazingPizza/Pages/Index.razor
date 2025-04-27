@@ -10,7 +10,7 @@
         {
             @foreach (var special in pizzaSpecials)
             {
-                <li style="background-image: url('@special.ImageUrl')">
+                <li @onclick="@(() => MostrarJanelaConfigPizza(special))" style="background-image: url('@special.ImageUrl')">
                     <div class="pizza-info">
                         <span class="title">@special.Nome</span>
                         @special.Descricao
@@ -22,12 +22,33 @@
     </ul>
 </div>
 
+@if (mostrarJanelaConfig)
+{
+    <ConfigurarPizza Pizza="configuracaoPizza" />
+}
+
 @code {
+
+    Pizza configuracaoPizza;
+    bool mostrarJanelaConfig;
+
     List<PizzaSpecial> pizzaSpecials = new();
 
     protected override async Task OnInitializedAsync()
     {
         pizzaSpecials = await HttpClient.GetFromJsonAsync<List<PizzaSpecial>>(NavigationManager.BaseUri + "pizzas");
+    }
+
+    void MostrarJanelaConfigPizza(PizzaSpecial special)
+    {
+        configuracaoPizza = new Pizza()
+            {
+                PizzaSpecial = special,
+                SpecialId = special.Id,
+                Tamanho = Pizza.DefaultSize
+            };
+
+        mostrarJanelaConfig = true;
     }
 }
 		
