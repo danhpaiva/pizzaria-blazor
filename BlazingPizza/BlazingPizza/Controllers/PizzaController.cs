@@ -5,24 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazingPizza.Controllers;
 
-public class PizzaController
+[ApiController] // Aplique o atributo ApiController na classe correta
+[Route("pizzas")] // Defina a rota base para este controller
+public class SpecialsController : ControllerBase // Herde de ControllerBase para recursos de API
 {
+    private readonly PizzaStoreContext _db;
 
-    [Route("pizzas")]
-    [ApiController]
-    public class SpecialsController : Controller
+    public SpecialsController(PizzaStoreContext db)
     {
-        private readonly PizzaStoreContext _db;
+        _db = db;
+    }
 
-        public SpecialsController(PizzaStoreContext db)
-        {
-            _db = db;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<List<PizzaSpecial>>> GetPizzas()
-        {
-            return (await _db.Tb_Pizzas.ToListAsync()).OrderByDescending(s => s.PrecoBase).ToList();
-        }
+    [HttpGet] // Este atributo indica que este método responde a requisições HTTP GET
+    public async Task<ActionResult<List<PizzaSpecial>>> GetPizzas()
+    {
+        var pizzas = await _db.Tb_Pizzas.ToListAsync();
+        return Ok(pizzas); // Retorna um status 200 OK com o JSON no corpo
     }
 }
