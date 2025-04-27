@@ -10,7 +10,7 @@
         <form class="dialog-body">
             <div>
                 <label>Tamanho:</label>
-                <input type="range" min="@Pizza.MinimumSize" max="@Pizza.MaximumSize" step="1" @bind="Pizza.Tamanho" />
+                <input type="range" min="@Pizza.MinimumSize" max="@Pizza.MaximumSize" step="1" @bind="Pizza.Tamanho" @bind:event="oninput" />
                 <span class="size-label">
                     @(Pizza.Tamanho)" (£@(Pizza.GetPrecoTotalFormatado()))
                 </span>
