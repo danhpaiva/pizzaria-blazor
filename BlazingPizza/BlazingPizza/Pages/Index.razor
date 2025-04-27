@@ -31,8 +31,40 @@
     OnConfirm="PedidoEstado.ConfirmarJanelaConfiguracaoPizza"/>
 }
 
+<div class="sidebar">
+    @if (pedido.ListaPizzas.Any())
+    {
+        <div class="order-contents">
+            <h2>Your order</h2>
+
+            @foreach (var configuredPizza in pedido.ListaPizzas)
+            {
+                <div class="cart-item">
+                    <div class="title">@(configuredPizza.Tamanho)" @configuredPizza.PizzaSpecial.Nome</div>
+                    <div class="item-price">
+                        @configuredPizza.GetPrecoTotalFormatado()
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">Escolha a pizza<br>para comecar</div>
+    }
+
+    <div class="order-total @(pedido.ListaPizzas.Any() ? "" : "hidden")">
+        Total:
+        <span class="total-price">@pedido.GetPrecoTotalFormatado()</span>
+        <a href="checkout" class="@(PedidoEstado.Pedido.ListaPizzas.Count == 0 ? "btn btn-warning disabled" : "btn btn-warning")">
+            Pedido >
+        </a>
+    </div>
+</div>
+
 @code {
     List<PizzaSpecial> pizzaSpecials = new();
+    Order pedido => PedidoEstado.Pedido;
 
     protected override async Task OnInitializedAsync()
     {
