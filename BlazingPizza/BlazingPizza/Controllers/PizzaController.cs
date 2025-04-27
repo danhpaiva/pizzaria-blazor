@@ -7,7 +7,7 @@ namespace BlazingPizza.Controllers;
 
 [ApiController]
 [Route("pizzas")]
-public class PizzaController : ControllerBase
+public class PizzaController : Controller
 {
     private readonly PizzaStoreContext _db;
 
