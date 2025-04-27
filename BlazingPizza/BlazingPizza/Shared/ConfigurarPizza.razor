@@ -18,11 +18,11 @@
         </form>
 
         <div class="dialog-buttons">
-            <button class="btn btn-secondary mr-auto">Cancelar</button>
+            <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancelar</button>
             <span class="mr-center">
                 Preco: <span class="price">@(Pizza.GetPrecoTotalFormatado())</span>
             </span>
-            <button class="btn btn-success ml-auto">Solicitar ></button>
+            <button class="btn btn-success ml-auto" @onclick="OnConfirm">Solicitar ></button>
         </div>
     </div>
 </div>
@@ -30,5 +30,7 @@
 @code {
     @code {
         [Parameter] public Pizza Pizza { get; set; }
+        [Parameter] public EventCallback OnCancel { get; set; }
+        [Parameter] public EventCallback OnConfirm { get; set; }
     }
 }
