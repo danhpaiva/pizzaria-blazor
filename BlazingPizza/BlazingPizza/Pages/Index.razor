@@ -1,4 +1,39 @@
 @page "/"
+@using BlazingPizza.Model
 
-<h1>Pizzaria Paiva</h1>
+<div class="main">
+    <h1>Pizzaria Paiva</h1>
+    <ul class="pizza-cards">
+        @if (pizzaSpecials != null)
+        {
+            @foreach (var special in pizzaSpecials)
+            {
+                <li style="background-image: url('@special.ImageUrl')">
+                    <div class="pizza-info">
+                        <span class="title">@special.Nome</span>
+                        @special.Descricao
+                        <span class="price">@special.GetPrecoBaseFormatado()</span>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+@code {
+    List<PizzaSpecial> pizzaSpecials = new();
+
+    protected override void OnInitialized()
+    {
+        pizzaSpecials.AddRange(new List<PizzaSpecial>
+        {
+            new PizzaSpecial { Nome = "Pizza Bacon", PrecoBase =  11.99M, Descricao = "Tem TODOS os tipos de bacon", ImageUrl="img/pizzas/bacon.jpg"},
+            new PizzaSpecial { Nome = "Pizza Bufalo", PrecoBase =  12.75M, Descricao = "Frango apimentado, molho picante e queijo azul, garantido para aquecê-lo", ImageUrl="img/pizzas/meaty.jpg"},
+            new PizzaSpecial { Nome = "Pizza Vegana", PrecoBase =  11.5M, Descricao = "É como salada, mas em uma pizza", ImageUrl="img/pizzas/salad.jpg"},
+            new PizzaSpecial { Nome = "Marguerita", PrecoBase =  9.99M, Descricao = "Pizza tradicional italiana com tomate e manjericão", ImageUrl="img/pizzas/margherita.jpg"},
+            new PizzaSpecial { Nome = "Pizza de Queijo", PrecoBase =  11.99M, Descricao = "Tem muitooo queijo. Por que você não iria querer uma?", ImageUrl="img/pizzas/cheese.jpg"},
+            new PizzaSpecial { Nome = "Classica Pepperoni", PrecoBase =  10.5M, Descricao = "É a pizza com a qual você cresceu, mas muito quente!", ImageUrl="img/pizzas/pepperoni.jpg" }
+        });
+    }
+}
 		
